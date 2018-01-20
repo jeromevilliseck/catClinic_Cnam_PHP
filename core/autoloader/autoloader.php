@@ -1,11 +1,14 @@
 <?php
 function __autoload($class)
 {
-    // Inclusion des class de type Vue
-    require_once('../../pages/htmls/'.$class.'.view.php');
-    require_once('../../pages/menus/'.$class.'.view.php');
-    require_once('../../pages/metas/'.$class.'.view.php');
+    switch ($class[0])
+    {
+        // Inclusion des class de type View
+        case 'V' : require_once('../../pages/views/'.$class.'.view.php');
+            break;
+        // Inclusion des class de type Mod
+        case 'M' : require_once('../database/'.$class.'.mod.php');
+            break;
+    }
     return;
-
-} // __autoload($class)
-?>
+}

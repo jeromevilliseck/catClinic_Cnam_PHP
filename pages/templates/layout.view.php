@@ -1,5 +1,5 @@
 <?php
-global $content, $globaldata; //Variable globale contenant le non du site
+global $content, $metadata; //Variables globales contenant le contenu et les données meta
 
 $vmenu_footer = new VMenuFooter(); //Instanciation de la classe contenant le menu
 $vmeta_information = new VMetaInformation(); //Instanciation de la classe contenant les informations meta supplementaires
@@ -12,16 +12,16 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php $vmeta_information->showOgProperties(); $vmeta_information->showFavicon(); ?>
+  <?php $vmeta_information->showOgProperties($metadata); $vmeta_information->showFavicon($metadata); ?>
   <title><?=$content['title']?></title>
-<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="../../public/css/app.css">
 </head>
 
 <body class="flex-container flex-dir-column"><!--BLOCK LEVEL 0 START-->
 
 <div class="content"><!--BLOCK LEVEL 1 START-->
 
-    <?php $vmenu->showMenu($globaldata['titlesite']); ?>
+    <?php $vmenu_footer->showMenu($metadata['title'], $metadata['icon']); ?>
 
     <aside class="padding-aside sticky-card"><!--BLOCK LEVEL 2 START-->
         <?=$content['aside']?>
@@ -38,10 +38,10 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
 </footer><!-- BLOCK LEVEL 1 END-->
 
 <!--Scripts Javascript-->
-<script src="js/jquery.js"></script>
-<script src="js/what-input.js"></script>
-<script src="js/foundation.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/what-input.js"></script>
+<script src="../js/foundation.js"></script>
+<script src="../js/app.js"></script>
 </body><!-- BLOCK LEVEL 0 END-->
 </html>
 
