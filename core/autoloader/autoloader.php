@@ -7,7 +7,7 @@ function __autoload($class)
         case 'V' : require_once('../../pages/views/'.$class.'.view.php');
             break;
         // Inclusion des class de type Mod
-        case 'M' : require_once('../database/'.$class.'.mod.php');
+        case 'M' : require_once('../../core/database/'.$class.'.mod.php');
             break;
     }
     return;

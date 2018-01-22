@@ -1,7 +1,10 @@
 <?php
 class VMenuFooter {
+
     private $siteTitle; //Nom du site
     private $siteIcon; //Icone de la barre de navigation
+    private $siteDescription; //Description du site
+    private $yearActive; //Année en cours
 
     public function __construct() {
     }
@@ -9,9 +12,11 @@ class VMenuFooter {
     public function __destruct() {
     }
 
-    public function showMenu($_siteTitle = null, $_siteIcon = null) {
-        $this->siteTitle = $_siteTitle;
-        $this->siteIcon = $_siteIcon;
+    public function showMenu() {
+        $this->siteTitle = SITETITLE;
+        $this->siteIcon = SITELOGO;
+        $this->siteDescription = SITEDESCRIPTION;
+        $this->yearActive = date('Y');
 
         echo <<<HERE
         <header class="title-bar" data-responsive-toggle="monmenu"><!--BLOCK LEVEL 2 START-->
@@ -56,8 +61,8 @@ HERE;
 
     public function showFooter(){
         echo <<<HERE
-        <h4>Information eventuellement importantes</h4>
-        <p>Le pied du site</p>
+        <h4>$this->siteTitle - $this->siteDescription</h4>
+        <p>Téléphone : <a href="tel:(+33)421230660">04421230660</a> - Mail : <a href="mailto:catclinic@gmail.com">catclinic@gmail.com</a> - $this->yearActive</p>
 HERE;
         return;
     } //showFooter()
