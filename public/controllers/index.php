@@ -13,6 +13,7 @@ switch ($EX)
     case 'home' : home(); break;
     case 'team' : team(); break;
     case 'spec' : specialities(); break;
+    case 'advi' : advices(); break;
     default : home(); break;
 }
 
@@ -38,6 +39,7 @@ function team(){
 
     /*Requête avec jointure pour connaitre les spécialités par médecin
     La condition de la requête SQL est remplacée par une paramètre de la méthode*/
+    //TODO Attention il faudra un objet qui selectionne tout les docteurs avec des boucles pour aller vers du code générique
     $data_remain = $mdoctors->SelectSpecialities("Remain");
     $data_burlotte = $mdoctors->SelectSpecialities("Burlotte");
     $data_abeauveaux = $mdoctors->SelectSpecialities("Abeauveaux");
@@ -72,6 +74,25 @@ function specialities(){
     $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
     $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>Vous êtes à : Spécialités</p>';
     $content['class'] = 'VSpecialities';
+    $content['method'] = 'showList';
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+
+}
+
+function advices(){
+
+    $madvices = new MAdvices();
+    $data = $madvices->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>Vous êtes à : Conseils</p>';
+    $content['class'] = 'VAdvices';
     $content['method'] = 'showList';
     $content['arg'] = $data;
 

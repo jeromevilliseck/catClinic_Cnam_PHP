@@ -1,0 +1,28 @@
+<?php
+
+class VAdvices
+{
+    public function construct(){}
+
+    public function destruct(){}
+
+    public function showList($_data)
+    {
+        //Boucle sur tuples
+        $tr = '';
+
+        //Création de contenu dynamique
+        foreach ($_data as $val) {
+            ($val['ID_ADVICE'] != NULL) ? $adviceId = $val['ID_ADVICE'] : $adviceId = NULL;
+            ($val['TYPES'] != NULL) ? $adviceTypes = $val['TYPES'] : $adviceTypes = NULL;
+            ($val['SHOWED'] != NULL) ? $adviceShowed = $val['SHOWED'] : $adviceShowed = NULL;
+
+            $tr .= '<article><header><h2 id="'.$adviceId.'">'.$adviceId.' : '.$adviceTypes.'</h2></header><section>'.$adviceShowed.'</section>';
+        }
+
+        echo <<<HERE
+        <br/>
+            $tr
+HERE;
+    }
+}

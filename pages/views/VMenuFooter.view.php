@@ -39,9 +39,9 @@ class VMenuFooter {
                     <li>
                         <a href="#">Conseils</a>
                         <ul class="menu vertical">
-                            <li><a href="../../public/controllers/index.php?EX=advi_list">Vaccination</a></li>
-                            <li><a href="../../public/controllers/index.php?EX=advi_list">A la maison</a></li>
-                            <li><a href="../../public/controllers/index.php?EX=advi_list">Médicaments</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#1">Vaccination</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#2">A la maison</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#3">Médicaments</a></li>
                         </ul>
                     </li>
                     <li>

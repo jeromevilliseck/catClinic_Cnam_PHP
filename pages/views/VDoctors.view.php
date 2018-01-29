@@ -16,13 +16,13 @@ class VDoctors{
         //Spécialité du premier docteur $_data[1]->Remain (couple indice / objet de type PDO::fetchAll()
         $variableRemain = '';
         foreach ($_data[1] as $local){
-            $variableRemain .= '<li>'$local['SPECIALITY'].'</li> ';
+            $variableRemain .= '<li>'.$local['SPECIALITY'].'</li>';
         }
 
         //Spécialité du deuxième docteur $_data[2]->Burlotte
         $variableBurlotte = '';
         foreach ($_data[2] as $local){
-            $variableBurlotte .= '<li>'$local['SPECIALITY'].' ';
+            $variableBurlotte .= '<li>'.$local['SPECIALITY'].'</li>';
         }
 
         //Spécialité du troisième docteur $_data[3]->Abeauveaux
