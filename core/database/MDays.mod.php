@@ -1,23 +1,6 @@
 <?php
 
-class MDays{
-    private $conn;
-    private $primary_key;
-    private $value;
-
-    //Toujours respecter la syntaxe $_ des variables de portée locale
-
-    public function __construct($_primary_key = null){
-        $this->conn = new PDO(DATABASE,LOGIN,PASSWORD);
-        $this->primary_key = $_primary_key;
-    }
-
-    public function __destruct(){
-    }
-
-    public function SetValue($_value){
-        $this->value = $_value;
-    }
+class MDays extends MGlobal{
 
     public function SelectDays(){
         $query = '

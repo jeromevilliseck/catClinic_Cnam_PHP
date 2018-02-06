@@ -1,11 +1,7 @@
 <?php
 
-class VDays
+class VDays extends VGlobal
 {
-    public function __construct(){}
-
-    public function __destruct(){}
-
     public function showTable($_data){
 
         //Boucle sur tuples

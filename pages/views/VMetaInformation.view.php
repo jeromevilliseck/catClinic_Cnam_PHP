@@ -1,11 +1,5 @@
 <?php
-class VMetaInformation {
-
-    public function __construct(){
-    }
-
-    public function __destruct(){
-    }
+class VMetaInformation extends VGlobal{
 
     //Ajout du balisage meta pour l'identification des contenus qui varient selon les pages en cas de partage sur le net (social)
     public function showOgProperties($_image){ //Obligation de passer en paramètre l'argument de la clé $content['vign']

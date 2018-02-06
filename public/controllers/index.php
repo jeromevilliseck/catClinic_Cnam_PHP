@@ -17,10 +17,14 @@ switch ($EX)
     case 'adre' : address(); break;
     case 'rdva' : appointment(); break;
     case 'hour' : hours(); break;
+
+    case 'doct' : doctor(); break;
+
     default : home(); break;
 }
 
 //Fonctions de contrôle
+
 function home(){
 
     global $content;
@@ -166,6 +170,32 @@ function address(){
     $content['class'] = 'VHtml';
     $content['method'] = 'showHtml';
     $content['arg'] = '../html/address.html';
+
+    $content['vign'] = '';
+
+    return;
+}
+
+
+function doctor(){
+
+    global $content;
+
+    if (isset($_GET['ID_DOCTOR'])) {
+        $mdoct = new MDoctors($_GET['ID_DOCTOR']);
+
+        $data = $mdoct->Select();
+    }
+    else
+    {
+        $data = '';
+    }
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>Clinique > Equipe > Fiche du spécialiste</p>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = 'showDoctor';
+    $content['arg'] = $data;
 
     $content['vign'] = '';
 

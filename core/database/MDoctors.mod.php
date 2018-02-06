@@ -1,23 +1,8 @@
 <?php
 
-class MDoctors{
-    private $conn;
-    private $primary_key;
-    private $value;
+class MDoctors extends MGlobal{
 
-    //Toujours respecter la syntaxe $_ des variables de portée locale
-
-    public function __construct($_primary_key = null){
-        $this->conn = new PDO(DATABASE,LOGIN,PASSWORD);
-        $this->primary_key = $_primary_key;
-    }
-
-    public function __destruct(){
-    }
-
-    public function SetValue($_value){
-        $this->value = $_value;
-    }
+//PARTIE OPERANT SUR L'ENSEMBLE DES TUPLES
 
     public function SelectAll(){
         $query = '
@@ -55,4 +40,26 @@ class MDoctors{
 
         return $result->rowCount(); //Attention il faut utiliser la méthode rowCount de la classe PDOStatement et non par faire un SELECT count avec un return result car on va sinon renvoyer un objet
     }
+
+//PARTIE OPERANT SUR UN SEUL TUPLE
+
+    public function Select()
+    {
+        $query = "select ID_DOCTOR,
+                     LASTNAME,
+                     FIRSTNAME,
+                     TYPEDOCTOR,
+                     PHONENUMBER,
+                     MAIL,
+                     PORTRAIT
+              from DOCTORS
+              where ID_DOCTOR = $this->primary_key"; //Récupérée au moment de l'instanciation -> Voir la classe mère MGlobal
+
+        $result = $this->conn->prepare($query);
+
+        $result->execute() or die ($this->ErrorSQL($result));
+
+        return $result->fetch();
+
+    } // Select()
 }

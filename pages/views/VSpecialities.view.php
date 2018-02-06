@@ -1,11 +1,7 @@
 <?php
 
-class VSpecialities
+class VSpecialities extends VGlobal
 {
-    public function __construct(){}
-
-    public function __destruct(){}
-
     public function showList($_data){
 
         //Boucle sur tuples

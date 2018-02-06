@@ -1,11 +1,7 @@
 <?php
 
-class VAdvices
+class VAdvices extends VGlobal
 {
-    public function construct(){}
-
-    public function destruct(){}
-
     public function showList($_data)
     {
         //Boucle sur tuples

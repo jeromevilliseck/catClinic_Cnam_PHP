@@ -1,16 +1,10 @@
 <?php
-class VMenuFooter {
+class VMenuFooter extends VGlobal{
 
     private $siteTitle; //Nom du site
     private $siteIcon; //Icone de la barre de navigation
     private $siteDescription; //Description du site
     private $yearActive; //Année en cours
-
-    public function __construct() {
-    }
-
-    public function __destruct() {
-    }
 
     public function showMenu() {
         $this->siteTitle = SITETITLE;
