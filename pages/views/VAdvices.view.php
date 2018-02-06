@@ -17,7 +17,8 @@ class VAdvices
             ($val['TYPES'] != NULL) ? $adviceTypes = $val['TYPES'] : $adviceTypes = NULL;
             ($val['SHOWED'] != NULL) ? $adviceShowed = $val['SHOWED'] : $adviceShowed = NULL;
 
-            $tr .= '<article><header><h2 id="'.$adviceId.'">'.$adviceId.' : '.$adviceTypes.'</h2></header><section>'.$adviceShowed.'</section>';
+            $tr .= '<article><header><h2 id="'.$adviceId.'">'.$adviceId.' : '.$adviceTypes.'</h2></header><section>'.$adviceShowed.'</section></article>';
+            //Ajout dans la balise de titre de l'id pour les ancres html
         }
 
         echo <<<HERE

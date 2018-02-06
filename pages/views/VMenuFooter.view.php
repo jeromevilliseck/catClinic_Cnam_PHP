@@ -49,7 +49,7 @@ class VMenuFooter {
                         <ul class="menu vertical">
                             <li><a href="../../public/controllers/index.php?EX=adre">Adresse</a></li>
                             <li><a href="../../public/controllers/index.php?EX=hour">Horaires</a></li>
-                            <li><a href="../../public/controllers/index.php?EX=cont">Contact</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=rdva">Prise de rdv</a></li>
                         </ul>
                     </li>
                 </ul><!--BLOCK LEVEL 4 END-->
