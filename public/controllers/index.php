@@ -3,6 +3,9 @@ require('../../core/autoloader/autoloader.php'); //Chargement dynamique des clas
 require('../../config/configDatabase.php'); //Constantes de connexion à la base de données
 require('../../config/configGenericValues.php'); //Constantes génériques propre au site
 
+// Crée une session nommée
+session_name('USER');
+session_start();
 
 //Variable de contrôle
 $EX = isset ($_REQUEST['EX']) ? $_REQUEST['EX'] : 'home'; //Contrôle via condition ternaire
@@ -10,15 +13,31 @@ $EX = isset ($_REQUEST['EX']) ? $_REQUEST['EX'] : 'home'; //Contrôle via condit
 //Controleur
 switch ($EX)
 {
+    //Vue html standard
     case 'home' : home(); break;
-    case 'team' : team(); break;
-    case 'spec' : specialities(); break;
-    case 'advi' : advices(); break;
     case 'adre' : address(); break;
     case 'rdva' : appointment(); break;
+
+    //Vue avec données multiples provenant d'un modèle
+    case 'team' : team(); break;
+
+    case 'spec' : specialities(); break;
+    case 'spec_ins' : specialities_form(); break; //PIEGE Attention menace de sécurité -> contrôller par isset que la superglobale existe bien dans chaque fonction de controle sinon quelqu'un pourrait saisir la clé directement dans le navigateur
+
+    case 'spec_ins_ok' : specialities_insert(); break;
+    case 'spec_upd_ok' : specialities_update(); break;
+
+    case 'spec_del' : specialities_delete(); break;
+
+    case 'advi' : advices(); break;
     case 'hour' : hours(); break;
 
+    //Vue avec donnée unique provenant d'un modèle
     case 'doct' : doctor(); break;
+
+    //Administration
+    case 'admi' : administration(); break;
+    case 'deco' : deconnect(); break;
 
     default : home(); break;
 }
@@ -94,6 +113,8 @@ function team(){
 
 function specialities(){
 
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showListAdmin' : 'showList'; //Selon si la superglobale est présente ou pas la vue contient des données supplémentaires pour l'administrateur
+
     $mspecialities = new MSpecialities();
     $data = $mspecialities->SelectAll();
 
@@ -102,7 +123,59 @@ function specialities(){
     $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
     $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>La clinique > Nos spécialités</p>';
     $content['class'] = 'VSpecialities';
-    $content['method'] = 'showList';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function specialities_form(){
+
+    //Sécurité pour empecher la modification de la table par un accès via la saisie de la clé dans l'url
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showFormAdmin' : 'showAccessForbidden';
+
+    //Si la clé n'est pas nul l'objet $data contient un array issue de la manipulation d'un objet avec la clé primaire id speciality
+    if (isset($_GET['ID_SPECIALITY'])) {
+        $mspecialities = new MSpecialities($_GET['ID_SPECIALITY']);
+        $data = $mspecialities->Select();
+    }
+    else {
+        $data = '';
+    }
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Mode administration';
+    $content['aside'] = '<h1>Edition : mode administrateur</h1>';
+    $content['class'] = 'VSpecialities';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function specialities_insert(){
+
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showList' : 'showAccessForbidden';
+
+    $mspecialities = new MSpecialities();
+    //Modifier le membre value de la classe mère avec les données du formulaire
+    $mspecialities->SetValue($_POST);
+    //Insère les données dans la table SPECIALITIES
+    $mspecialities->Insert();
+    //Réaffiche tous les tuples de la table en les récupérant
+    $data = $mspecialities->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Mode administration';
+    $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>La clinique > Nos spécialités</p>';
+    $content['class'] = 'VSpecialities';
+    $content['method'] = $method;
     $content['arg'] = $data;
 
     $content['vign'] = '';
@@ -176,7 +249,6 @@ function address(){
     return;
 }
 
-
 function doctor(){
 
     global $content;
@@ -202,7 +274,25 @@ function doctor(){
     return;
 }
 
+function administration(){
+    $_SESSION['ADMIN_SITE'] = true; //Superglobale crée
 
+    home();
+
+    return;
+}
+
+function deconnect(){
+        // Détruit la session
+        session_destroy();
+        // Détruit les variables de session
+        $_SESSION = array();
+
+        // Redirection vers la page d'accueil
+        header('Location: ../controllers');
+
+        return;
+}
 
 // Mise en page
 require('../../pages/templates/layout.view.php');
