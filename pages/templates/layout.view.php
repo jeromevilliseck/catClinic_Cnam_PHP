@@ -43,7 +43,7 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
     <script src="../js/framework/app.js"></script>
 
     <!--User Javascript Scripts-->
-    <script src="../js/user/caroussel"></script>
+    <script src="../js/user/caroussel.js"></script>
 </body><!-- BLOCK LEVEL 0 END-->
 </html>
 

@@ -12,13 +12,14 @@ class VMenuFooter extends VGlobal{
         $this->siteDescription = SITEDESCRIPTION;
         $this->yearActive = date('Y');
 
-        $class = isset($_SESSION['ADMIN_SITE']) ? 'style="color: red;"' : ''; //variable contenant des propriétés css s'intégrant dans la balise pour colorer les liens en rouge quand le mode admin est activé
+        $class0 = isset($_SESSION['ADMIN_SITE']) ? 'style="color: red;"' : ''; //variable contenant des propriétés css s'intégrant dans la balise pour colorer les liens en rouge quand le mode admin est activé
+        $class1 = 'style="color: purple;"';
 
         $li = '';
 
         if (isset($_SESSION['ADMIN_SITE']))
         {
-            $li = '<li><a '.$class.' href="../controllers/index.php?EX=deco">Deconnexion</a></li>';
+            $li = '<li><a '.$class0.' href="../controllers/index.php?EX=deco">Deconnexion</a></li>';
 
         }
 
@@ -35,25 +36,25 @@ class VMenuFooter extends VGlobal{
                     <li><!--CHILD BLOCK LEVEL 5 START-->
                         <a href="#">Clinique</a><!--INLINE-->
                         <ul class="menu vertical"><!--BLOCK LEVEL 6 START-->
-                            <li><a $class href="../../public/controllers/index.php?EX=home">Accueil</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=team">Equipe</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=spec">Spécialités</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=home">Accueil</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=team">Equipe</a></li>
+                            <li><a $class0 href="../../public/controllers/index.php?EX=spec">Spécialités</a></li>
                         </ul><!--BLOCK LEVEL 6 END-->
                     </li><!--CHILD BLOCK LEVEL 5 END-->
                     <li>
                         <a href="#">Conseils</a>
                         <ul class="menu vertical">
-                            <li><a $class href="../../public/controllers/index.php?EX=advi#1">Vaccination</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=advi#2">A la maison</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=advi#3">Médicaments</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#1">Vaccination</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#2">A la maison</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=advi#3">Médicaments</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">Accès</a>
                         <ul class="menu vertical">
-                            <li><a $class href="../../public/controllers/index.php?EX=adre">Adresse</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=hour">Horaires</a></li>
-                            <li><a $class href="../../public/controllers/index.php?EX=rdva">Prise de rdv</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=adre">Adresse</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=hour">Horaires</a></li>
+                            <li><a $class1 href="../../public/controllers/index.php?EX=rdva">Prise de rdv</a></li>
                         </ul>
                     </li>
                     $li
