@@ -27,4 +27,18 @@ class MGlobal
         $this->value = $_value;
         return;
     }
+
+    //Récupération des erreurs SQL dans les classes dérivées
+    public function ErrorSQL($result)
+    {
+        // Récupère le tableau des erreurs
+        $error = $result->errorInfo();
+
+        echo 'TYPE_ERROR = ' . $error[0] . '<br />';
+        echo 'CODE_ERROR = ' . $error[1] . '<br />';
+        echo 'MSG_ERROR = ' . $error[2] . '<br />';
+
+        return;
+
+    } // ErrorSQL($result)
 }

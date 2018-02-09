@@ -30,7 +30,7 @@ class VMenuFooter extends VGlobal{
         <nav class="top-bar" id="monmenu"><!--BLOCK LEVEL 2 START-->
             <div class="top-bar-left"><!--BLOCK LEVEL 3 START-->
                 <ul class="dropdown menu vertical medium-horizontal" data-responsive-menu="drilldown medium-dropdown"><!--BLOCK LEVEL 4 START-->
-                    <div class="menu-logo padding-left-logo"><img src=" $this->siteIcon " /></div><!--BLOCK LEVEL 5 START/END-->
+                    <div class="menu-logo padding-left-logo">$this->siteIcon</div><!--BLOCK LEVEL 5 START/END-->
                     <li class="menu-text show-for-medium"> $this->siteTitle </li><!--CHILD BLOCK LEVEL 5 START/END-->
                     <li><!--CHILD BLOCK LEVEL 5 START-->
                         <a href="#">Clinique</a><!--INLINE-->

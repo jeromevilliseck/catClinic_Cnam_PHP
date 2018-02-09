@@ -36,11 +36,14 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
         <?php $vmenu_footer->showFooter(); ?>
     </footer>                                                                           <!-- BLOCK LEVEL 1 END-->
 
-    <!--Scripts Javascript-->
-    <script src="../js/jquery.js"></script>
-    <script src="../js/what-input.js"></script>
-    <script src="../js/foundation.js"></script>
-    <script src="../js/app.js"></script>
+    <!--Framework Javascript Scripts-->
+    <script src="../js/framework/jquery.js"></script>
+    <script src="../js/framework/what-input.js"></script>
+    <script src="../js/framework/foundation.js"></script>
+    <script src="../js/framework/app.js"></script>
+
+    <!--User Javascript Scripts-->
+    <script src="../js/user/caroussel"></script>
 </body><!-- BLOCK LEVEL 0 END-->
 </html>
 

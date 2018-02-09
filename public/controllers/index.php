@@ -23,10 +23,8 @@ switch ($EX)
 
     case 'spec' : specialities(); break;
     case 'spec_ins' : specialities_form(); break; //PIEGE Attention menace de sécurité -> contrôller par isset que la superglobale existe bien dans chaque fonction de controle sinon quelqu'un pourrait saisir la clé directement dans le navigateur
-
     case 'spec_ins_ok' : specialities_insert(); break;
     case 'spec_upd_ok' : specialities_update(); break;
-
     case 'spec_del' : specialities_delete(); break;
 
     case 'advi' : advices(); break;
@@ -111,6 +109,8 @@ function team(){
     return;
 }
 
+//TODO appliquer la même conception sur les autres vues et modèles des tables team, advices, hour
+//SPECIALITIES CONTROL FUNCTIONS BLOC START
 function specialities(){
 
     $method = isset($_SESSION['ADMIN_SITE']) ? 'showListAdmin' : 'showList'; //Selon si la superglobale est présente ou pas la vue contient des données supplémentaires pour l'administrateur
@@ -160,7 +160,7 @@ function specialities_form(){
 
 function specialities_insert(){
 
-    $method = isset($_SESSION['ADMIN_SITE']) ? 'showList' : 'showAccessForbidden';
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showListAdmin' : 'showAccessForbidden';
 
     $mspecialities = new MSpecialities();
     //Modifier le membre value de la classe mère avec les données du formulaire
@@ -182,6 +182,53 @@ function specialities_insert(){
 
     return;
 }
+
+function specialities_update(){
+
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showListAdmin' : 'showAccessForbidden';
+
+    $mspecialities = new MSpecialities($_POST['ID_SPECIALITY']);
+    $mspecialities->SetValue($_POST);
+    var_dump($mspecialities);
+    $mspecialities->Update();
+    $data = $mspecialities->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Mode administration';
+    $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>La clinique > Nos spécialités</p>';
+    $content['class'] = 'VSpecialities';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function specialities_delete(){
+
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showListAdmin' : 'showAccessForbidden';
+
+    $mspecialities = new MSpecialities($_GET['ID_SPECIALITY']); //Attention c'est un lien cliquable pour DELETE donc objet get pas objet post
+    $mspecialities->Delete();
+
+
+    $data = $mspecialities->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Mode administration';
+    $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>La clinique > Nos spécialités</p>';
+    $content['class'] = 'VSpecialities';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+//SPECIALITIES CONTROL FUNCTIONS BLOC END
 
 function advices(){
 

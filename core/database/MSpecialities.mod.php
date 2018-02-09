@@ -31,26 +31,56 @@ class MSpecialities extends MGlobal
         return $value;
     }
 
-    //TODO Reprendre ici le travail en ecrivant correctement la fonction et en controllant si l'id fait partie de la requete
-
     public function Insert()
     {
-        $query = 'insert into SPECIALITIES (NOM, PRENOM, EMAIL)
-              values(:NOM, :PRENOM, :EMAIL)';
+        $query = '
+          insert into SPECIALITIES (SPECIALITY, SPECIALITY_DESCRIPTION)
+          values(:SPECIALITY, :SPECIALITY_DESCRIPTION)
+          ';
 
         $result = $this->conn->prepare($query);
 
-        $result->bindValue(':NOM', $this->value['NOM'], PDO::PARAM_STR);
-        $result->bindValue(':PRENOM', $this->value['PRENOM'], PDO::PARAM_STR);
-        $result->bindValue(':EMAIL', $this->value['EMAIL'], PDO::PARAM_STR);
+        $result->bindValue(':SPECIALITY', $this->value['SPECIALITY'], PDO::PARAM_STR);
+        $result->bindValue(':SPECIALITY_DESCRIPTION', $this->value['SPECIALITY_DESCRIPTION'], PDO::PARAM_STR);
+
+        $result->execute() or die ($result);
+        $this->primary_key = $this->conn->lastInsertId();
+        $this->value['ID_SPECIALITY'] = $this->primary_key;
+
+        return $this->value;
+    } // Insert()
+
+    public function Update()
+    {
+        $query = '
+            update SPECIALITIES
+            set SPECIALITY = :SPECIALITY,
+            SPECIALITY_DESCRIPTION = :SPECIALITY_DESCRIPTION
+            where ID_SPECIALITY = :ID_SPECIALITY
+        ';
+
+        $result = $this->conn->prepare($query);
+
+        $result->bindValue(':ID_SPECIALITY', $this->value['ID_SPECIALITY'], PDO::PARAM_STR);
+        $result->bindValue(':SPECIALITY', $this->value['SPECIALITY'], PDO::PARAM_STR);
+        $result->bindValue(':SPECIALITY_DESCRIPTION', $this->value['SPECIALITY_DESCRIPTION'], PDO::PARAM_STR);
 
         $result->execute() or die ($result);
 
-        $this->id_client = $this->conn->lastInsertId();
+        return;
+    }
 
-        $this->value['ID_CLIENT'] = $this->id_client;
+    public function Delete(){
+        $query = '
+          delete from SPECIALITIES
+  	 	  where ID_SPECIALITY = :ID_SPECIALITY
+  	 	  ';
 
-        return $this->value;
+        $result = $this->conn->prepare($query);
 
-    } // Insert()
+        $result->bindValue(':ID_SPECIALITY', $this->primary_key, PDO::PARAM_INT);
+        $result->execute() or die ($result);
+
+        return;
+    }
 }
