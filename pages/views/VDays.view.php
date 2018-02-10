@@ -19,7 +19,7 @@ class VDays extends VGlobal
 
         echo <<<HERE
         <p>
-<table>
+<table id="table_id" class="display">
     <thead>
     <tr>
         <th class="data-label">Jour de la semaine</th>

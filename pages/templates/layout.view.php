@@ -15,6 +15,7 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
   <?php $vmeta_information->showOgProperties($content['vign']); ?>
   <title><?=$content['title']?></title>
 <link rel="stylesheet" href="../../public/css/app.css">
+<link rel="stylesheet" type="text/css" href="../../public/api/dataTables/datatables.min.css"/>
 </head>
 
 <body class="flex-container flex-dir-column">                                           <!--BLOCK LEVEL 0 START-->
@@ -37,13 +38,19 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
     </footer>                                                                           <!-- BLOCK LEVEL 1 END-->
 
     <!--Framework Javascript Scripts-->
-    <script src="../js/framework/jquery.js"></script>
-    <script src="../js/framework/what-input.js"></script>
-    <script src="../js/framework/foundation.js"></script>
-    <script src="../js/framework/app.js"></script>
+    <script src="../../public/js/framework/jquery.js"></script>
+    <script src="../../public/js/framework/what-input.js"></script>
+    <script src="../../public/js/framework/foundation.js"></script>
+    <script src="../../public/js/framework/app.js"></script>
 
     <!--User Javascript Scripts-->
-    <script src="../js/user/caroussel.js"></script>
+    <script src="../../public/js/user_js_standard/caroussel.js"></script>
+    <!--User Listeners Script-->
+    <script src="../../public/js/user_js_listeners/init.js"></script>
+
+    <!--External API Scripts-->
+    <script type="text/javascript" src="../../public/api/dataTables/datatables.min.js"></script>
+    <script src="../../public/js/api/dataTables/dataTables.js"></script>
 </body><!-- BLOCK LEVEL 0 END-->
 </html>
 

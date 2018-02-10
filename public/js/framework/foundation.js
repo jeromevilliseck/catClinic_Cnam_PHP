@@ -7630,7 +7630,7 @@ var OffCanvas = function (_Plugin) {
 
 OffCanvas.defaults = {
   /**
-   * Allow the user to click outside of the menu to close it.
+   * Allow the user_js_standard to click outside of the menu to close it.
    * @option
    * @type {boolean}
    * @default true
@@ -9582,7 +9582,7 @@ Reveal.defaults = {
    */
   closeOnClick: true,
   /**
-   * Allows the modal to close if the user presses the `ESCAPE` key.
+   * Allows the modal to close if the user_js_standard presses the `ESCAPE` key.
    * @option
    * @type {boolean}
    * @default true
@@ -9638,7 +9638,7 @@ Reveal.defaults = {
    */
   resetOnClose: false,
   /**
-   * Allows the modal to alter the url on open/close, and allows the use of the `back` button to close modals. ALSO, allows a modal to auto-maniacally open on page load IF the hash === the modal's user-set id.
+   * Allows the modal to alter the url on open/close, and allows the use of the `back` button to close modals. ALSO, allows a modal to auto-maniacally open on page load IF the hash === the modal's user_js_standard-set id.
    * @option
    * @type {boolean}
    * @default false
@@ -10383,7 +10383,7 @@ Slider.defaults = {
    */
   binding: false,
   /**
-   * Allows the user to click/tap on the slider bar to select a value.
+   * Allows the user_js_standard to click/tap on the slider bar to select a value.
    * @option
    * @type {boolean}
    * @default true
@@ -10397,7 +10397,7 @@ Slider.defaults = {
    */
   vertical: false,
   /**
-   * Allows the user to drag the slider handle(s) to select a value.
+   * Allows the user_js_standard to drag the slider handle(s) to select a value.
    * @option
    * @type {boolean}
    * @default true
@@ -10433,7 +10433,7 @@ Slider.defaults = {
    */
   // dragDelay: 0,
   /**
-   * Time, in ms, to animate the movement of a slider handle if user clicks/taps on the bar. Needs to be manually set if updating the transition time in the Sass settings.
+   * Time, in ms, to animate the movement of a slider handle if user_js_standard clicks/taps on the bar. Needs to be manually set if updating the transition time in the Sass settings.
    * @option
    * @type {number}
    * @default 200
@@ -11420,7 +11420,7 @@ var Tooltip = function (_Positionable) {
 
     /**
      * sets the position class of an element and recursively calls itself until there are no more possible positions to attempt, or the tooltip element is no longer colliding.
-     * if the tooltip is larger than the screen width, default to full width - any user selected margin
+     * if the tooltip is larger than the screen width, default to full width - any user_js_standard selected margin
      * @private
      */
 
@@ -11762,7 +11762,7 @@ Tooltip.defaults = {
    */
   tooltipWidth: 12,
   /**
-  * Allow HTML in tooltip. Warning: If you are loading user-generated content into tooltips,
+  * Allow HTML in tooltip. Warning: If you are loading user_js_standard-generated content into tooltips,
   * allowing HTML may open yourself up to XSS attacks.
   * @option
   * @type {boolean}
