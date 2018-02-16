@@ -10,8 +10,6 @@ class MDays extends MGlobal{
           AND DD.ID_DAY = DA.ID_DAY
           AND DA.ID_DAY = DH.ID_DAY
           AND DH.ID_HOUR = H.ID_HOUR
-          GROUP BY DA.DAYNAME
-          ORDER BY DA.ID_DAY
           ';
         $result = $this->conn->prepare($query);
         $result->execute() or die ($this->ErrorSQL($result));

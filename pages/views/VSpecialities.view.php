@@ -104,11 +104,4 @@ HERE;
         return;
 
     }
-
-    public function showAccessForbidden(){
-        echo <<<HERE
-    <br/>
-<a href="../controllers/index.php" class="alert button">Accès interdit, cliquez pour retourner à l'accueil</a>
-HERE;
-    }
 }

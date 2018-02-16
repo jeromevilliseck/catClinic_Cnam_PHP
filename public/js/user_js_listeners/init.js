@@ -63,3 +63,40 @@ function changeImage(){
     return;
 }
 //Caroussel FUNCTIONS END
+
+
+
+//Menu ajax FUNCTIONS START
+//Ecouteurs sur les éléments button
+//TODO attention ne placer des écouteurs que sur les liens qui vont aller chercher une page html -> a discuter à l'oral
+//TODO supprimer le shadowing sur la manipulation des objets en version supérieure (refactoring)
+var click_button_homeReturn = document.getElementById('button_homeReturn');
+Listener(click_button_homeReturn, 'click', viewHomeReturn)
+
+var click_button_adress = document.getElementById('button_adress');
+Listener(click_button_adress, 'click', viewAdress)
+
+var click_button_appointement = document.getElementById('button_appo');
+Listener(click_button_appointement, 'click', viewAppointment)
+
+
+function viewHomeReturn()
+{
+    changeContent('content', '../../public/controllers/index.php', 'EX=homeReturn');
+    return;
+
+} // viewSelect()
+
+function viewAdress()
+{
+    changeContent('content', '../../public/controllers/index.php', 'EX=adre');
+    return;
+
+} // viewInput()
+
+function viewAppointment()
+{
+    changeContent('content', '../../public/controllers/index.php', 'EX=rdva');
+    return;
+
+} // viewRadio()

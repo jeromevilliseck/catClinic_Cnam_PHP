@@ -10,13 +10,17 @@ session_start();
 //Variable de contrôle
 $EX = isset ($_REQUEST['EX']) ? $_REQUEST['EX'] : 'home'; //Contrôle via condition ternaire
 
+//TODO a signaler et a discuter lors de l'oral -> j'ai voulu placer lors de la mise en place d'ajax changeContent la vue avant les fonctions de contrôle comme dans le cours de C. Bonhomme mais ça ne fonctionne pas puisque l'on appelle du display avant d'executer les fonctions de contrôle -> j'ai donc replacer le require de la vue tout en fin de fichier
+//TODO à discuter lors de l'oral -> est il possible de faire de l'ajax avec la méthode changeContent sur des fonctions de contrôle faisant appel à des classes modèles
+//TODO voir comment au niveau de l'algorithme on peut eviter de réinstancier des éléments déja présents (conditions sur éléments global content ?), puisque changeContent() n'a l'air de fonction qu'avec showHtml en MVC.
+
 //Controleur
 switch ($EX)
 {
     //Vue html standard
-    case 'home' : home(); break;
-    case 'adre' : address(); break;
-    case 'rdva' : appointment(); break;
+    case 'homeReturn' : homeReturn(); exit; //AJAX
+    case 'adre' : address(); exit; //AJAX
+    case 'rdva' : appointment(); exit; //AJAX
 
     //Vue avec données multiples provenant d'un modèle
     case 'team' : team(); break;
@@ -33,8 +37,17 @@ switch ($EX)
     //Vue avec donnée unique provenant d'un modèle
     case 'doct' : doctor(); break;
 
+    //Gestion des utilisateurs en base de données -> Ajout, Modification, Suppression
+    case 'usem' : user_management(); break;
+    case 'user_ins' : user_form(); break; //Contrôle de sécurité à effectuer
+    case 'user_ins_ok' : user_insert(); break;
+    case 'user_upd_ok' : user_update(); break;
+    case 'user_del' : user_delete(); break;
+
     //Administration
-    case 'admi' : administration(); break;
+    case 'foco' : form_connect(); break;
+    case 'conn' : connect(); break;
+    //case 'admi' : administration(); break; form_connect Remplace la fonction précèdente administration() qui ne faisait pas de contrôle
     case 'deco' : deconnect(); break;
 
     default : home(); break;
@@ -57,6 +70,15 @@ function home(){
     return;
 }
 
+function homeReturn(){
+
+    $vhtml = new VHtml();
+    $vhtml->showHtml('../html/home.html');
+
+    $content['vign'] = '';
+    return;
+}
+
 function team(){
 
     $mdoctors = new MDoctors();
@@ -65,7 +87,7 @@ function team(){
     $rowCount = $mdoctors->SelectCount(); //Pas de paramètre 'TABLE' dans la fonction puisque une classe modèle est rattaché à une table dans la méthode vue en cours
     //On à récupéré le nombre de tuples
 
-    //Vers de la généricité avec des liaisons SQL...
+    //Vers du code générique avec des liaisons SQL...
     $arrObjLocal = array(); //Obligation de passer par un objet collection pour sortir de la problématique de portée locale
     for ($i = 1; $i <= $rowCount; $i++) { //Attention car l'indice 0 de l'objet $arrObj contient l'objet PDO sur lequel est appliqué la méthode fetchAll() ne pas se faire piéger;
 
@@ -189,7 +211,6 @@ function specialities_update(){
 
     $mspecialities = new MSpecialities($_POST['ID_SPECIALITY']);
     $mspecialities->SetValue($_POST);
-    var_dump($mspecialities);
     $mspecialities->Update();
     $data = $mspecialities->SelectAll();
 
@@ -254,12 +275,11 @@ function appointment(){
 
     $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
     $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>Vous souhaitez prendre Rendez-vous<br><a href="http://supersaas.fr/schedule/catclinic2018/prise_de_rdv_avec_un_praticien">Cliquez ici pour prendre rdv avec votre mobile</a></p>';
-    $content['class'] = 'VHtml';
-    $content['method'] = 'showHtml';
-    $content['arg'] = '../html/appointment.html';
+
+    $vhtml = new VHtml();
+    $vhtml->showHtml('../html/appointment.html');
 
     $content['vign'] = '';
-
     return;
 }
 
@@ -287,9 +307,8 @@ function address(){
 
     $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
     $content['aside'] = '<h1>Bienvenue chez '. SITETITLE .'</h1><p>Accès > Notre addresse</p>';
-    $content['class'] = 'VHtml';
-    $content['method'] = 'showHtml';
-    $content['arg'] = '../html/address.html';
+    $vhtml = new VHtml();
+    $vhtml->showHtml('../html/address.html');
 
     $content['vign'] = '';
 
@@ -321,6 +340,48 @@ function doctor(){
     return;
 }
 
+function form_connect(){
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h1>Connexion en mode administrateur</h1>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = 'formConnect';
+    $content['arg'] = '';
+
+    return;
+
+}
+
+function connect(){
+    //Vérification des données de connexion
+    $mdoctors = new MDoctors();
+    $mdoctors->SetValue($_POST);
+    $data = $mdoctors->Verif();
+
+    //Contrôle si $data est bien instancié avec un tuple, sans erreur
+    if($data){
+        //Passage sur un mode administration unique pour tous les utilisateurs
+        $_SESSION['ADMIN_SITE'] = true; //Superglobale crée
+
+        home(); //Renvoi sur la page d'accueil avec la superglobale active
+
+        return;
+    }
+    else{
+
+        $_SESSION['ERROR'] = 'Mot de passe'; //Instanciation d'une superglobale SESSION 'ERROR'
+
+        global $content;
+
+        $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+        $content['aside'] = '<h1>Connexion en mode administrateur</h1>';
+        $content['class'] = 'VDoctors';
+        $content['method'] = 'formConnect';
+        $content['arg'] = '';
+    }
+}
+
 function administration(){
     $_SESSION['ADMIN_SITE'] = true; //Superglobale crée
 
@@ -339,6 +400,114 @@ function deconnect(){
         header('Location: ../controllers');
 
         return;
+}
+
+function user_management(){
+
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'manageDoctors' : 'showAccessForbidden'; //Selon si la superglobale est présente ou pas la vue contient des données supplémentaires pour l'administrateur
+
+    $mdoctors = new MDoctors();
+    $data = $mdoctors->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h2>Gestion des utilisateurs</h2>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function user_form(){
+
+    //Sécurité pour empecher la modification de la table par un accès via la saisie de la clé dans l'url
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'showFormAdminDoctor' : 'showAccessForbidden';
+
+    if (isset($_GET['ID_DOCTOR'])) {
+        $mdoctor = new MDoctors($_GET['ID_DOCTOR']);
+        $data = $mdoctor->Select();
+    }
+    else {
+        $data = '';
+    }
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Mode administration';
+    $content['aside'] = '<h1>Insertion / Edition d\'utilisateur</h1>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function user_insert(){
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'manageDoctors' : 'showAccessForbidden';
+
+    $mdoctors = new MDoctors();
+    $mdoctors->SetValue($_POST);
+    $mdoctors->Insert();
+    $data = $mdoctors->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h2>Gestion des utilisateurs</h2>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function user_update(){
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'manageDoctors' : 'showAccessForbidden';
+
+    $mdoctors = new MDoctors($_POST['ID_DOCTOR']);
+    $mdoctors->SetValue($_POST);
+    $mdoctors->Update();
+    $data = $mdoctors->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h2>Gestion des utilisateurs</h2>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
+}
+
+function user_delete(){
+    $method = isset($_SESSION['ADMIN_SITE']) ? 'manageDoctors' : 'showAccessForbidden';
+
+    $mdoctors = new MDoctors($_GET['ID_DOCTOR']);
+    $mdoctors->Delete();
+    $data = $mdoctors->SelectAll();
+
+    global $content;
+
+    $content['title'] = ''. SITETITLE .' - '. SITEDESCRIPTION .' - Accueil';
+    $content['aside'] = '<h2>Gestion des utilisateurs</h2>';
+    $content['class'] = 'VDoctors';
+    $content['method'] = $method;
+    $content['arg'] = $data;
+
+    $content['vign'] = '';
+
+    return;
 }
 
 // Mise en page

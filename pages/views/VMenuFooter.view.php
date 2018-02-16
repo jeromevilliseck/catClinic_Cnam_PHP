@@ -15,12 +15,13 @@ class VMenuFooter extends VGlobal{
         $class0 = isset($_SESSION['ADMIN_SITE']) ? 'style="color: red;"' : ''; //variable contenant des propriétés css s'intégrant dans la balise pour colorer les liens en rouge quand le mode admin est activé
         $class1 = 'style="color: purple;"';
 
-        $li = '';
+        $deconnectLink = '';
+        $usersManagement = '';
 
         if (isset($_SESSION['ADMIN_SITE']))
         {
-            $li = '<li><a '.$class0.' href="../controllers/index.php?EX=deco">Deconnexion</a></li>';
-
+            $usersManagement = '<li><a '.$class1.' href="../controllers/index.php?EX=usem">Gestion Utilisateurs</a></li>';
+            $deconnectLink = '<li><a '.$class0.' href="../controllers/index.php?EX=deco">Deconnexion</a></li>';
         }
 
         echo <<<HERE
@@ -36,9 +37,9 @@ class VMenuFooter extends VGlobal{
                     <li><!--CHILD BLOCK LEVEL 5 START-->
                         <a href="#">Clinique</a><!--INLINE-->
                         <ul class="menu vertical"><!--BLOCK LEVEL 6 START-->
-                            <li><a href="../../public/controllers/index.php?EX=home">Accueil</a></li>
+                            <li><button id="button_homeReturn" class="menu-text">Accueil</button></li>
                             <li><a href="../../public/controllers/index.php?EX=team">Equipe</a></li>
-                            <li><a $class0 href="../../public/controllers/index.php?EX=spec">Spécialités</a></li>
+                            <li><a href="../../public/controllers/index.php?EX=spec" $class0>Spécialités</a></li>
                         </ul><!--BLOCK LEVEL 6 END-->
                     </li><!--CHILD BLOCK LEVEL 5 END-->
                     <li>
@@ -52,12 +53,13 @@ class VMenuFooter extends VGlobal{
                     <li>
                         <a href="#">Accès</a>
                         <ul class="menu vertical">
-                            <li><a href="../../public/controllers/index.php?EX=adre">Adresse</a></li>
+                            <li><button id="button_adress" class="menu-text">Adresse</button></li>
                             <li><a href="../../public/controllers/index.php?EX=hour">Horaires</a></li>
-                            <li><a $class1 href="../../public/controllers/index.php?EX=rdva">Prise de rdv</a></li>
+                            <li><button id="button_appo" class="menu-text" $class1>Prise de rdv</button></li>
                         </ul>
                     </li>
-                    $li
+                    $usersManagement
+                    $deconnectLink
                 </ul><!--BLOCK LEVEL 4 END-->
             </div><!--BLOCK LEVEL 3 END-->
         </nav><!--BLOCK LEVEL 2 END-->
@@ -67,9 +69,10 @@ HERE;
 
 
     public function showFooter(){
+        $class1 = 'style="color: purple;"';
         echo <<<HERE
         <h4>$this->siteTitle - $this->siteDescription</h4>
-        <p>Téléphone : <a href="tel:(+33)421230660">04421230660</a> - Mail : <a href="mailto:catclinic@gmail.com">catclinic@gmail.com</a> - <a href="../controllers/index.php?EX=admi">Administration</a> - $this->yearActive</p>
+        <p>Téléphone : <a href="tel:(+33)421230660">04421230660</a> - Mail : <a href="mailto:catclinic@gmail.com">catclinic@gmail.com</a> - <a href="../controllers/index.php?EX=foco" $class1>Administration</a> - $this->yearActive</p>
 HERE;
         return;
     } //showFooter()

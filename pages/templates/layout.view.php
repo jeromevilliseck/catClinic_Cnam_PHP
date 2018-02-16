@@ -2,6 +2,7 @@
 global $content; //Variables globales contenant le contenu et les données meta
 
 $vmenu_footer = new VMenuFooter(); //Instanciation de la classe contenant le menu
+
 $vmeta_information = new VMetaInformation(); //Instanciation de la classe contenant les informations meta supplementaires
 $vcontent = new $content['class'](); //Instanciation d'une classe variable selon la valeur de la clé du tableau associatif $content du controleur
 ?>
@@ -27,7 +28,7 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
             <?=$content['aside']?>
         </aside>
 
-        <main class="padding-main">                                                     <!-- BLOCK LEVEL 2 START-->
+        <main class="padding-main" id="content">                                                     <!-- BLOCK LEVEL 2 START-->
             <?php $vcontent->{$content['method']}($content['arg']); ?>
         </main>                                                                         <!-- BLOCK LEVEL 2 END-->
 
@@ -47,6 +48,8 @@ $vcontent = new $content['class'](); //Instanciation d'une classe variable selon
     <script src="../../public/js/user_js_standard/caroussel.js"></script>
     <!--User Listeners Script-->
     <script src="../../public/js/user_js_listeners/init.js"></script>
+    <!--User Ajax Script-->
+    <script src="../../public/js/user_ajax/ajax.js"></script>
 
     <!--External API Scripts-->
     <script type="text/javascript" src="../../public/api/dataTables/datatables.min.js"></script>
