@@ -79,6 +79,9 @@ Listener(click_button_adress, 'click', viewAdress)
 var click_button_appointement = document.getElementById('button_appo');
 Listener(click_button_appointement, 'click', viewAppointment)
 
+var click_button_contact = document.getElementById('button_contact');
+Listener(click_button_contact, 'click', viewFormContact)
+
 
 function viewHomeReturn()
 {
@@ -100,3 +103,10 @@ function viewAppointment()
     return;
 
 } // viewRadio()
+
+function viewFormContact()
+{
+    changeContent('content', '../../public/controllers/index.php', 'EX=forc');
+    return;
+
+} // viewContact()

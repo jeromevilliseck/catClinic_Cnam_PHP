@@ -55,6 +55,7 @@ class VMenuFooter extends VGlobal{
                         <ul class="menu vertical">
                             <li><button id="button_adress" class="menu-text">Adresse</button></li>
                             <li><a href="../../public/controllers/index.php?EX=hour">Horaires</a></li>
+                            <li><button id="button_contact" class="menu-text">Contact</a></li>
                             <li><button id="button_appo" class="menu-text" $class1>Prise de rdv</button></li>
                         </ul>
                     </li>
