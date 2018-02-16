@@ -6,7 +6,6 @@ function Listener(elem, event, fnct) {
         } else { //IE
             elem.attachEvent('on' + event, fnct);
         }
-
         // Si l'événement est un click on change le curseur de souris
         if ('click' == event) {
             elem.style.cursor = 'pointer';
@@ -27,8 +26,8 @@ function diaporama(){
 }
 
 function changeImage(){
-    var images = Array('homePageCaroussel01.jpg', 'homePageCaroussel02.jpg', 'homePageCaroussel03.jpg');
-    var nb_images = images.length; //3
+    var images = Array('homePageCaroussel01.jpg', 'homePageCaroussel02.jpg', 'homePageCaroussel03.jpg', 'homePageCaroussel04.jpg');
+    var nb_images = images.length; //4
     var picture  = document.getElementById('photo');
     var description = document.getElementById('descript');
 
@@ -49,6 +48,9 @@ function changeImage(){
             } else if(image_visible == images[2]){
                 picture.setAttribute('alt', 'photo montrant un tigre');
                 description.innerHTML = 'Nos amis les félins';
+            } else if(image_visible == images[3]){
+                picture.setAttribute('alt', 'photo montrant bada la mascotte de catclinic');
+                description.innerHTML = '...and bada is in the place';
             }
 
             picture.setAttribute('src', '../img/' + image_visible);
@@ -58,7 +60,7 @@ function changeImage(){
     }
 
     //Timer du changement d'image
-    setTimeout(changeImage, 6000);
+    setTimeout(changeImage, 16000);
 
     return;
 }
