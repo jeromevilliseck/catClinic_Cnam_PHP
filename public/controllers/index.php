@@ -135,18 +135,15 @@ function team() {
 
     $mdoctors = new MDoctors();
     $data     = $mdoctors->SelectAll();
-
     $rowCount = $mdoctors->SelectCount(); //Pas de paramètre 'TABLE' dans la fonction puisque une classe modèle est rattaché à une table dans la méthode vue en cours
     //On à récupéré le nombre de tuples
 
     //Vers du code générique avec des liaisons SQL...
     $arrObjLocal = array(); //Obligation de passer par un objet collection pour sortir de la problématique de portée locale
     for ($i = 1; $i <= $rowCount; $i++) { //Attention car l'indice 0 de l'objet $arrObj contient l'objet PDO sur lequel est appliqué la méthode fetchAll() ne pas se faire piéger;
-
         $dataLocal = $mdoctors->SelectSpecialities($i);
-
+        var_dump($dataLocal);
         $arrObjLocal[$i] = $dataLocal;
-
         //Ne pas mettre de return ici car on est pas dans une fonction mais dans une structure de contrôle de portée locale
     }
 

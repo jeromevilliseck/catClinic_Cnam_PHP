@@ -26,7 +26,7 @@ class VDoctors extends VGlobal {
         //Spécialité du troisième docteur $_data[3]->Abeauveaux
         $variableAbeauveaux = '';
         foreach ($_data[3] as $local) {
-            $variableAbeauveaux .= $local['SPECIALITY'] . ' ';
+            $variableAbeauveaux .= '<li>'. $local['SPECIALITY'] . '</li>';
         }
 
         //Boucle sur tuples
@@ -47,7 +47,7 @@ class VDoctors extends VGlobal {
             //Essayer de sortir de ce problème car sinon il va falloir une variable locale pour chaque $variable issue d'une boucle sur la requete issue des jointures
             ($val['ID_DOCTOR'] == 1) ? $dS1 = '<p> Spécialité : ' . $variableRemain . '</p>' : $dS1 = NULL;
             ($val['ID_DOCTOR'] == 2) ? $dS2 = '<p> Spécialité : ' . $variableBurlotte . '</p>' : $dS2 = NULL;
-            ($val['ID_DOCTOR'] == 3) ? $dS3 = '<p> Spécialité :' . $variableAbeauveaux . '</p>' : $dS3 = NULL;
+            ($val['ID_DOCTOR'] == 3) ? $dS3 = '<p> Spécialité : ' . $variableAbeauveaux . '</p>' : $dS3 = NULL;
             //Fin de la portion spécifique
 
             (($val['ID_DOCTOR'] || $val['LASTNAME'] || $val['FIRSTNAME'] || $val['TYPEDOCTOR'] || $val['PHONENUMBER'] || $val['MAIL'] || $val['PORTRAIT']) != NULL) ? $articleStart = '<article>' : $articleStart = NULL;
@@ -177,7 +177,7 @@ HERE;
             ' . $headerStart . '
             <a href="../controllers/index.php?EX=user_ins&amp;ID_DOCTOR='.$val['ID_DOCTOR'].'" class="button">Modifier cet utilisateur</a>
             ' . $doctorFirstName . ' ' . $doctorLastName . '' . $headerEnd . '
-            ' . $sectionStart . '' . $doctorTypeDoctor . '' . $doctorPortrait . '' . $dS1 . '' . $dS2 . '' . $dS3 . '' . $sectionEnd . '
+            ' . $sectionStart . '' . $doctorTypeDoctor . '' . $doctorPortrait . '' . $sectionEnd . '
             ' . $footerStart . '' . $doctorPhoneNumber . '' . $doctorMail . '' . $footerEnd . '
             ' . $articleEnd . '
             ';
