@@ -142,7 +142,6 @@ function team() {
     $arrObjLocal = array(); //Obligation de passer par un objet collection pour sortir de la problématique de portée locale
     for ($i = 1; $i <= $rowCount; $i++) { //Attention car l'indice 0 de l'objet $arrObj contient l'objet PDO sur lequel est appliqué la méthode fetchAll() ne pas se faire piéger;
         $dataLocal = $mdoctors->SelectSpecialities($i);
-        var_dump($dataLocal);
         $arrObjLocal[$i] = $dataLocal;
         //Ne pas mettre de return ici car on est pas dans une fonction mais dans une structure de contrôle de portée locale
     }
@@ -243,7 +242,7 @@ function specialities_insert() {
     global $content;
 
     $content['title']  = '' . SITETITLE . ' - ' . SITEDESCRIPTION . ' - Mode administration';
-    $content['aside']  = '<h1>Bienvenue chez ' . SITETITLE . '</h1><p>La clinique > Nos spécialités</p>';
+    $content['aside']  = '<h1>Edition : mode administrateur</h1>';
     $content['class']  = 'VSpecialities';
     $content['method'] = $method;
     $content['arg']    = $data;
@@ -265,7 +264,7 @@ function specialities_update() {
     global $content;
 
     $content['title']  = '' . SITETITLE . ' - ' . SITEDESCRIPTION . ' - Mode administration';
-    $content['aside']  = '<h1>Bienvenue chez ' . SITETITLE . '</h1><p>La clinique > Nos spécialités</p>';
+    $content['aside']  = '<h1>Edition : mode administrateur</h1>';
     $content['class']  = 'VSpecialities';
     $content['method'] = $method;
     $content['arg']    = $data;
@@ -288,7 +287,7 @@ function specialities_delete() {
     global $content;
 
     $content['title']  = '' . SITETITLE . ' - ' . SITEDESCRIPTION . ' - Mode administration';
-    $content['aside']  = '<h1>Bienvenue chez ' . SITETITLE . '</h1><p>La clinique > Nos spécialités</p>';
+    $content['aside']  = '<h1>Edition : mode administrateur</h1>';
     $content['class']  = 'VSpecialities';
     $content['method'] = $method;
     $content['arg']    = $data;
